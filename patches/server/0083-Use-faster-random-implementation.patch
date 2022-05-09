@@ -5,7 +5,7 @@ Subject: [PATCH] Use faster random implementation
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 11c1ebd8522f74012a77cb23fd3a104b309f80eb..7e303ad6ded56b9d94cc97a99a35e732db4ea34f 100644
+index 88bbbb083f5c3a1c8e4de7ced7d34ea38c86a5e6..3394e5266c69a28238b2cca1b515bc207ba0c54f 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -31,6 +31,7 @@ dependencies {
@@ -56,7 +56,7 @@ index edc5b0fde13cecf1da371972bd040d7ca38a690b..d41e64afb0f1895ae8b800a9c2b336eb
              double d1 = (double) (center.y - maxRange);
              double d2 = (double) (center.x + maxRange);
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 6bc6ea20304caca2360189335223b7f4bd042dae..3d505329642f4483b55c0f93110c1857bc4bcad1 100644
+index 0866b340a11d4650fc00a40cdb949b6e44691f8c..8eed99c1d58111b391c9c119d5ee60ec54b4d1f2 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 @@ -48,7 +48,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
@@ -91,10 +91,10 @@ index 4ba1913dcaa27dfb12257d530f874e79ca4b4b5e..0dfb153c8fa587e366f903e5b1534f65
  
      public static int roundToward(int value, int divisor) {
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 4dce3a035dc5bebcc1e293005dbe5e992ec337d0..4c71af5c9804368c06d5d4b1cb7d884d20fe6849 100644
+index 18a65bac0c84474d9aaaa067d17cd0d092061129..1a0d0fd7d5ca7d6d5b3e0e8e834c206e25882a5d 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -182,7 +182,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -181,7 +181,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
      }
  
      // Paper start
@@ -143,10 +143,10 @@ index 57f593e5f797d646ceb70fa61ec2e966cf4dabc1..62d6bcb3f47afae75d167b1ca6e70e25
  
      protected static boolean wantsToPickup(Piglin piglin, ItemStack stack) {
 diff --git a/src/main/java/net/minecraft/world/entity/npc/WanderingTraderSpawner.java b/src/main/java/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
-index 17fc1e07069546cdd3a7bd35e900e4c35ed43fd5..d0e870b8b6a7b660dd702d59b7f407d2c7169db6 100644
+index 4e478c30714a8e4cd95f02e73615d166836d1e4b..6c942839a30f50c44acda5e4379f2088878c70a4 100644
 --- a/src/main/java/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
 +++ b/src/main/java/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
-@@ -36,7 +36,7 @@ public class WanderingTraderSpawner implements CustomSpawner {
+@@ -35,7 +35,7 @@ public class WanderingTraderSpawner implements CustomSpawner {
      private static final int SPAWN_CHANCE_INCREASE = 25;
      private static final int SPAWN_ONE_IN_X_CHANCE = 10;
      private static final int NUMBER_OF_SPAWN_ATTEMPTS = 10;
@@ -156,7 +156,7 @@ index 17fc1e07069546cdd3a7bd35e900e4c35ed43fd5..d0e870b8b6a7b660dd702d59b7f407d2
      private int tickDelay;
      private int spawnDelay;
 diff --git a/src/main/java/net/minecraft/world/entity/projectile/FishingHook.java b/src/main/java/net/minecraft/world/entity/projectile/FishingHook.java
-index 475ff3c62796306694c76ca5315cd27d2cbe8fbe..37c7703e2f96106802c5b612a279c5e7a6723f10 100644
+index 3789a0db398766f0fbc9e5ac5bf4228a0a0dac88..e8a6e619bf9c22792a938f8ebebe635466865ff6 100644
 --- a/src/main/java/net/minecraft/world/entity/projectile/FishingHook.java
 +++ b/src/main/java/net/minecraft/world/entity/projectile/FishingHook.java
 @@ -79,7 +79,7 @@ public class FishingHook extends Projectile {
@@ -204,7 +204,7 @@ index ea7b670aa6308bbe9919afced02a9067da20f0ce..bbeba8aecc05c47c668c105149fb6760
          this.costs = new int[3];
          this.enchantClue = new int[]{-1, -1, -1};
 diff --git a/src/main/java/net/minecraft/world/level/BaseSpawner.java b/src/main/java/net/minecraft/world/level/BaseSpawner.java
-index 6bbf1618e41c81fd2064ffd5d835187a927f24b7..a48d367e0297ed75b96b5851956c1e153d463e6d 100644
+index 4bfebbb2e87464cd47a38a5da6275b2c662fa052..effae052c945ee49d2cbdf4a13b65670706357aa 100644
 --- a/src/main/java/net/minecraft/world/level/BaseSpawner.java
 +++ b/src/main/java/net/minecraft/world/level/BaseSpawner.java
 @@ -41,7 +41,7 @@ public abstract class BaseSpawner {
@@ -217,7 +217,7 @@ index 6bbf1618e41c81fd2064ffd5d835187a927f24b7..a48d367e0297ed75b96b5851956c1e15
  
      public BaseSpawner() {}
 diff --git a/src/main/java/net/minecraft/world/level/Explosion.java b/src/main/java/net/minecraft/world/level/Explosion.java
-index 855bead90dd192085f8584785504bb32e093a609..aa2ba1c387226a73186525efcbd81263c8641685 100644
+index 29f6c10e2c2626a9726d295acf12efea2b463cd3..e207a4c2de578274aa7ec8acdbccfbaf6feadae3 100644
 --- a/src/main/java/net/minecraft/world/level/Explosion.java
 +++ b/src/main/java/net/minecraft/world/level/Explosion.java
 @@ -89,7 +89,7 @@ public class Explosion {
