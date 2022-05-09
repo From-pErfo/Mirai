@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jacob <jacob@stellardev.org>
+Date: Wed, 19 Jan 2022 16:55:38 -0700
+Subject: [PATCH] Fast speed check
+
+Original code by NFT-Worlds, licensed under GNU General Public License v3.0
+You can find the original code on https://github.com/NFT-Worlds/Server
+
+etil2jz's note:
+NFT-Worlds is related to Stellar devs, known for countless paid forks mostly taking open source patches,
+doing questionable/buggy ones, and claiming breathtaking performance improvements. Never ever pay for
+any of those Spigot forks!
+
+diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
+index b47c4a8f255d1a3720bc10e4cc7be86dcfacaa6a..d9b3b85e2bf1908fef4e03c12557e2e8979ac5d0 100644
+--- a/src/main/java/net/minecraft/world/entity/Entity.java
++++ b/src/main/java/net/minecraft/world/entity/Entity.java
+@@ -1151,7 +1151,16 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+                 }
+ 
+                 this.tryCheckInsideBlocks();
+-                float f2 = this.getBlockSpeedFactor();
++                float f2;
++                if (wtf.etil.mirai.MiraiConfig.fastSpeedCheck) {
++                    if (this.getDeltaMovement().x == 0 && this.getDeltaMovement().z == 0) {
++                        f2 = 1;
++                    } else {
++                        f2 = this.getBlockSpeedFactor();
++                    }
++                } else {
++                    f2 = this.getBlockSpeedFactor();
++                }
+ 
+                 this.setDeltaMovement(this.getDeltaMovement().multiply((double) f2, 1.0D, (double) f2));
+                 // Paper start - remove expensive streams from here
+diff --git a/src/main/java/wtf/etil/mirai/MiraiConfig.java b/src/main/java/wtf/etil/mirai/MiraiConfig.java
+index 92879795ef7a7685a9505e4f2fa4236e2f67d7bd..fa2682d06a02c1b4a3889a9f748997544d9d09de 100644
+--- a/src/main/java/wtf/etil/mirai/MiraiConfig.java
++++ b/src/main/java/wtf/etil/mirai/MiraiConfig.java
+@@ -256,4 +256,9 @@ public class MiraiConfig {
+         criterionTriggerLocation = getBoolean("criterion-trigger.location", criterionTriggerLocation);
+     }
+ 
++    public static boolean fastSpeedCheck = true;
++    private static void speedCheck() {
++        fastSpeedCheck = getBoolean("fast-speed-check", fastSpeedCheck);
++    }
++
+ }
+\ No newline at end of file
