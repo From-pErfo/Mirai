@@ -14,13 +14,13 @@ jobs:
           version: 'latest'
           java-version: '17'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: 1.18.2"
+          automatic_release_tag: 1.18.2-Purpur"
       - name: Pull Gradle Cache
         uses: actions/cache@v3.0.1
         id: gradle-cache
         with:
           path: ~/.gradle
-          key: ${{ runner.os }}-maven-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-java-${{ matrix.java }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-java-17
       - name: Configure Git
         run: |
           git config --global user.email "no-reply@github.com"
