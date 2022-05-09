@@ -36,12 +36,4 @@ jobs:
         with:
           name: Mirai-1.18.2
           path: build/libs/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar
-      - name: Release
-        if: github.ref_name == 'ver/1.18.2'
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: '1.18.2'
-          prerelease: false
-          title: 'Mirai 1.18.2'
-          files: build/libs/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar
+
