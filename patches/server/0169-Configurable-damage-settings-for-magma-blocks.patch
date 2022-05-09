@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ben Kerllenevich <ben@omega24.dev>
+Date: Thu, 29 Apr 2021 14:06:29 -0400
+Subject: [PATCH] Configurable damage settings for magma blocks
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
+index df6caa1d3f3024b26b7e4b01ebb2e307138850dc..ab822d03cbd8cc5047277f42f29e4c736fb177b3 100644
+--- a/src/main/java/net/minecraft/world/entity/Entity.java
++++ b/src/main/java/net/minecraft/world/entity/Entity.java
+@@ -1071,7 +1071,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+                 }
+                 // CraftBukkit end
+ 
+-                if (this.onGround && (!this.isSteppingCarefully() || (block == Blocks.STONECUTTER && level.purpurConfig.stonecutterDamage > 0.0F))) {
++                if (this.onGround && (!this.isSteppingCarefully() || (block == Blocks.STONECUTTER && level.purpurConfig.stonecutterDamage > 0.0F) || (block == Blocks.MAGMA_BLOCK && level.purpurConfig.magmaBlockDamageWhenSneaking))) { // Purpur
+                     block.stepOn(this.level, blockposition, iblockdata, this);
+                 }
+ 
+diff --git a/src/main/java/net/minecraft/world/level/block/MagmaBlock.java b/src/main/java/net/minecraft/world/level/block/MagmaBlock.java
+index be40f6f68b7273cbc50a0b9658e4b0981f723674..6701d35a8911cccbcb4ce77dfc0393a5172f0120 100644
+--- a/src/main/java/net/minecraft/world/level/block/MagmaBlock.java
++++ b/src/main/java/net/minecraft/world/level/block/MagmaBlock.java
+@@ -28,7 +28,7 @@ public class MagmaBlock extends Block {
+ 
+     @Override
+     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
+-        if (!entity.fireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
++        if (!entity.fireImmune() && entity instanceof LivingEntity && (world.purpurConfig.magmaBlockDamageWithFrostWalker || !EnchantmentHelper.hasFrostWalker((LivingEntity) entity))) { // Purpur
+             org.bukkit.craftbukkit.event.CraftEventFactory.blockDamage = world.getWorld().getBlockAt(pos.getX(), pos.getY(), pos.getZ()); // CraftBukkit
+             entity.hurt(DamageSource.HOT_FLOOR, 1.0F);
+             org.bukkit.craftbukkit.event.CraftEventFactory.blockDamage = null; // CraftBukkit
+diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
+index eb7faf2a5cf909f0570435bf8656421a44a50ff9..d3e9b9c680a71b4e9cb3d1cb3a91a195cad336ba 100644
+--- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
++++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
+@@ -589,6 +589,13 @@ public class PurpurWorldConfig {
+         lavaSpeedNotNether = getInt("blocks.lava.speed.not-nether", lavaSpeedNotNether);
+     }
+ 
++    public boolean magmaBlockDamageWhenSneaking = false;
++    public boolean magmaBlockDamageWithFrostWalker = false;
++    private void magmaBlockSettings() {
++        magmaBlockDamageWhenSneaking = getBoolean("blocks.magma-block.damage-when-sneaking", magmaBlockDamageWhenSneaking);
++        magmaBlockDamageWithFrostWalker = getBoolean("blocks.magma-block.damage-with-frost-walker", magmaBlockDamageWithFrostWalker);
++    }
++
+     public boolean powderSnowBypassMobGriefing = false;
+     private void powderSnowSettings() {
+         powderSnowBypassMobGriefing = getBoolean("blocks.powder_snow.bypass-mob-griefing", powderSnowBypassMobGriefing);

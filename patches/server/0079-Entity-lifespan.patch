@@ -1,0 +1,112 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: William Blake Galbreath <blake.galbreath@gmail.com>
+Date: Sat, 11 Jul 2020 19:41:34 -0500
+Subject: [PATCH] Entity lifespan
+
+
+diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+index 4a997a60baa9051f037b67ad60c09fb532b76114..06c02aa50d3ece744678ba99c21237b02c0a8aca 100644
+--- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -2530,6 +2530,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
+             double d0 = 36.0D;
+ 
+             if (this.player.distanceToSqr(entity) < 36.0D) {
++                if (entity instanceof Mob mob) mob.ticksSinceLastInteraction = 0; // Purpur
+                 packet.dispatch(new ServerboundInteractPacket.Handler() {
+                     private void performInteraction(InteractionHand enumhand, ServerGamePacketListenerImpl.EntityInteraction playerconnection_a, PlayerInteractEntityEvent event) { // CraftBukkit
+                         ItemStack itemstack = ServerGamePacketListenerImpl.this.player.getItemInHand(enumhand).copy();
+diff --git a/src/main/java/net/minecraft/world/entity/Mob.java b/src/main/java/net/minecraft/world/entity/Mob.java
+index ce9087c1374d54ce59ec6897dd9885540bd5181c..fdadbd3b393916b0f6d110140d0c22c8e173dd1a 100644
+--- a/src/main/java/net/minecraft/world/entity/Mob.java
++++ b/src/main/java/net/minecraft/world/entity/Mob.java
+@@ -129,6 +129,7 @@ public abstract class Mob extends LivingEntity {
+     private BlockPos restrictCenter;
+     private float restrictRadius;
+ 
++    public int ticksSinceLastInteraction; // Purpur
+     public boolean aware = true; // CraftBukkit
+ 
+     protected Mob(EntityType<? extends Mob> type, Level world) {
+@@ -286,6 +287,7 @@ public abstract class Mob extends LivingEntity {
+                 entityliving = null;
+             }
+         }
++        if (entityliving instanceof ServerPlayer) this.ticksSinceLastInteraction = 0; // Purpur
+         this.target = entityliving;
+         return true;
+         // CraftBukkit end
+@@ -330,9 +332,29 @@ public abstract class Mob extends LivingEntity {
+             this.playAmbientSound();
+         }
+ 
++        incrementTicksSinceLastInteraction(); // Purpur
+         this.level.getProfiler().pop();
+     }
+ 
++    // Purpur start
++    private void incrementTicksSinceLastInteraction() {
++        ++this.ticksSinceLastInteraction;
++        if (getRider() != null) {
++            this.ticksSinceLastInteraction = 0;
++            return;
++        }
++        if (this.level.purpurConfig.entityLifeSpan <= 0) {
++            return; // feature disabled
++        }
++        if (!this.removeWhenFarAway(0) || isPersistenceRequired() || requiresCustomPersistence() || hasCustomName()) {
++            return; // mob persistent
++        }
++        if (this.ticksSinceLastInteraction > this.level.purpurConfig.entityLifeSpan) {
++            this.discard();
++        }
++    }
++    // Purpur end
++
+     @Override
+     protected void playHurtSound(DamageSource source) {
+         this.resetAmbientSoundTime();
+@@ -516,6 +538,7 @@ public abstract class Mob extends LivingEntity {
+         }
+ 
+         nbt.putBoolean("Bukkit.Aware", this.aware); // CraftBukkit
++        nbt.putInt("Purpur.ticksSinceLastInteraction", this.ticksSinceLastInteraction); // Purpur
+     }
+ 
+     @Override
+@@ -586,6 +609,11 @@ public abstract class Mob extends LivingEntity {
+             this.aware = nbt.getBoolean("Bukkit.Aware");
+         }
+         // CraftBukkit end
++        // Purpur start
++        if (nbt.contains("Purpur.ticksSinceLastInteraction")) {
++            this.ticksSinceLastInteraction = nbt.getInt("Purpur.ticksSinceLastInteraction");
++        }
++        // Purpur end
+     }
+ 
+     @Override
+@@ -1615,6 +1643,7 @@ public abstract class Mob extends LivingEntity {
+             this.setLastHurtMob(target);
+         }
+ 
++        if (target instanceof ServerPlayer) this.ticksSinceLastInteraction = 0; // Purpur
+         return flag;
+     }
+ 
+diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
+index d6f6cf7e17d9cd5b1398aab8e2b9b6df75fea02e..d25af1733601d26b6d2173837a0a5948ae01a6d4 100644
+--- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
++++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
+@@ -124,6 +124,11 @@ public class PurpurWorldConfig {
+         elytraDamagePerTridentBoost = getInt("gameplay-mechanics.elytra.damage-per-boost.trident", elytraDamagePerTridentBoost);
+     }
+ 
++    public int entityLifeSpan = 0;
++    private void entitySettings() {
++        entityLifeSpan = getInt("gameplay-mechanics.entity-lifespan", entityLifeSpan);
++    }
++
+     public List<Item> itemImmuneToCactus = new ArrayList<>();
+     public List<Item> itemImmuneToExplosion = new ArrayList<>();
+     public List<Item> itemImmuneToFire = new ArrayList<>();

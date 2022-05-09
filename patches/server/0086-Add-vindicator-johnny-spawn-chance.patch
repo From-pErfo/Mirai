@@ -1,0 +1,51 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: William Blake Galbreath <Blake.Galbreath@GMail.com>
+Date: Fri, 24 Jul 2020 19:38:21 -0500
+Subject: [PATCH] Add vindicator johnny spawn chance
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/monster/Vindicator.java b/src/main/java/net/minecraft/world/entity/monster/Vindicator.java
+index ff62f5ed29a826c4dd53eb6fe04f5aa27de62619..acd4e282841708d7ef0145757899e355a6410a4a 100644
+--- a/src/main/java/net/minecraft/world/entity/monster/Vindicator.java
++++ b/src/main/java/net/minecraft/world/entity/monster/Vindicator.java
+@@ -7,6 +7,7 @@ import java.util.function.Predicate;
+ import javax.annotation.Nullable;
+ import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.chat.Component;
++import net.minecraft.network.chat.TranslatableComponent;
+ import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
+@@ -151,6 +152,12 @@ public class Vindicator extends AbstractIllager {
+         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
+         this.populateDefaultEquipmentSlots(difficulty);
+         this.populateDefaultEquipmentEnchantments(difficulty);
++        // Purpur start
++        Level level = world.getMinecraftWorld();
++        if (level.purpurConfig.vindicatorJohnnySpawnChance > 0D && random.nextDouble() <= level.purpurConfig.vindicatorJohnnySpawnChance) {
++            setCustomName(new TranslatableComponent("Johnny"));
++        }
++        // Purpur end
+         return groupdataentity1;
+     }
+ 
+diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
+index 7159461ec4b4563d3fd15c12f7900b70f643592f..48f8f0447d4612c15b3a9c53b74c593a608bc352 100644
+--- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
++++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
+@@ -1594,6 +1594,7 @@ public class PurpurWorldConfig {
+     public boolean vindicatorRidableInWater = false;
+     public boolean vindicatorControllable = true;
+     public double vindicatorMaxHealth = 24.0D;
++    public double vindicatorJohnnySpawnChance = 0D;
+     private void vindicatorSettings() {
+         vindicatorRidable = getBoolean("mobs.vindicator.ridable", vindicatorRidable);
+         vindicatorRidableInWater = getBoolean("mobs.vindicator.ridable-in-water", vindicatorRidableInWater);
+@@ -1604,6 +1605,7 @@ public class PurpurWorldConfig {
+             set("mobs.vindicator.attributes.max_health", oldValue);
+         }
+         vindicatorMaxHealth = getDouble("mobs.vindicator.attributes.max_health", vindicatorMaxHealth);
++        vindicatorJohnnySpawnChance = getDouble("mobs.vindicator.johnny.spawn-chance", vindicatorJohnnySpawnChance);
+     }
+ 
+     public boolean wanderingTraderRidable = false;
