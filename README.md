@@ -1,6 +1,6 @@
 <img src="logo.webp" alt="Mirai Face" align="right">
 <div align="center">
-  <h1>Mirai</h1>
+  <h1>Mirai 的 purpur 版本</h1>
   <h3>一个来自未来的强大的MC服务器</h3>
   <h4>Mirai 正在 ❗大力发展中❗ 欢迎投稿! </h4>
   <h5><b>这个项目是实验性的, 如果你没准备好面对可能的错误, 不推荐在生产环境中使用它.</b></h5>
