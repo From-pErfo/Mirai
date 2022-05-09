@@ -6,10 +6,10 @@ Subject: [PATCH] PaperPR Stop large look changes from crashing the server
 Taken from https://github.com/PaperMC/Paper/pull/7459
 
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 293b56de10f72dc9df85950b77b54bcc2082b12c..b3c2ca09027966bc0235fbbf492fc2c46e0f5318 100644
+index 0298679a3003729e824ca5223aa3dddb88ae7fe8..e40df9451d3a763a8aead1cc0bc070415027290d 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-@@ -3037,37 +3037,12 @@ public abstract class LivingEntity extends Entity {
+@@ -2974,37 +2974,12 @@ public abstract class LivingEntity extends Entity {
          this.level.getProfiler().pop();
          this.level.getProfiler().push("rangeChecks");
  
