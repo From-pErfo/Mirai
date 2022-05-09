@@ -7,13 +7,13 @@ Original code by CaffeineMC, licensed under GNU Lesser General Public License v3
 You can find the original code on https://github.com/CaffeineMC/lithium-fabric (Yarn mappings)
 
 diff --git a/src/main/java/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java b/src/main/java/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java
-index e389f4239dc92e925d6206eb8415b423b0201c87..5932e7a47a55cb148d9632d204aa2cc6cc01a86f 100644
+index bba08f488acffcce9ae26fe648eb49fe9a2aeec7..37e19ce6b8eccc0463f0b35404b83d1ff8fb4632 100644
 --- a/src/main/java/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java
 +++ b/src/main/java/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java
-@@ -29,6 +29,12 @@ public class SecondaryPoiSensor extends Sensor<Villager> {
-             return;
-         }
-         // Purpur end
+@@ -22,6 +22,12 @@ public class SecondaryPoiSensor extends Sensor<Villager> {
+ 
+     @Override
+     protected void doTick(ServerLevel world, Villager entity) {
 +        // Mirai start - lithium: ai.sensor.secondary_poi
 +        if (entity.getVillagerData().getProfession().getSecondaryPoi().isEmpty()) {
 +            entity.getBrain().eraseMemory(MemoryModuleType.SECONDARY_JOB_SITE);
