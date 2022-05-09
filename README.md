@@ -1,7 +1,7 @@
 <img src="logo.webp" alt="Mirai Face" align="right">
 <div align="center">
   <h1>Mirai 的 purpur 版本</h1>
-  <h5><b><i>我尽量保证它"可以运行", 此分支会尝试在作者更新 purpur 版本后重置并开始更新</i></b></h5>
+  <h5><i>我尽量保证它"可以运行", 此分支会尝试在作者更新 purpur 版本后重置并开始更新</i></h5>
   
   <h3>一个来自未来的强大的MC服务器</h3>
   <h4>Mirai 正在 ❗大力发展中❗ 欢迎投稿! </h4>
