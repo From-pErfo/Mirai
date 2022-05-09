@@ -9,7 +9,7 @@ Original code by RelativityMC, licensed under MIT
 You can find the original code on https://github.com/RelativityMC/VMP-fabric (Yarn mappings)
 
 diff --git a/src/main/java/net/minecraft/server/level/ChunkMap.java b/src/main/java/net/minecraft/server/level/ChunkMap.java
-index c0bb015bd1ce923a5a2a805e68ae3d25cc252777..a83af59e0ff76b6bd17a34f4897625ce8afbd71d 100644
+index f69ed1e35d141909a2f1117233a22f289602a0ec..e9238c779bf5b7fd1d2c555941230df4184c4cb1 100644
 --- a/src/main/java/net/minecraft/server/level/ChunkMap.java
 +++ b/src/main/java/net/minecraft/server/level/ChunkMap.java
 @@ -15,6 +15,7 @@ import com.mojang.datafixers.util.Either;
