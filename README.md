@@ -1,45 +1,45 @@
 <img src="logo.webp" alt="Mirai Face" align="right">
 <div align="center">
   <h1>Mirai</h1>
-  <h3>A powerful Minecraft Server Software coming from the future</h3>
-  <h4>Mirai is ❗under heavy development❗ and contributions are welcome!</h4>
-  <h5><b>This project is experimental, its usage in production environment is discouraged if you are not ready to face possible bugs.</b></h5>
+  <h3>一个来自未来的强大的MC服务器</h3>
+  <h4>Mirai 正在 ❗大力发展中❗ 欢迎投稿! </h4>
+  <h5><b>这个项目是实验性的, 如果你没准备好面对可能的错误, 不推荐在生产环境中使用它.</b></h5>
   
   ![Build status](https://img.shields.io/github/workflow/status/etil2jz/Mirai/Build/ver/1.18?style=for-the-badge)
   [![Discord](https://img.shields.io/discord/928402257605701683?color=5865F2&label=discord&style=for-the-badge)](https://discord.gg/DdH6Yfu9gM)
 </div>
 
-## Features
+## 特性
 
-- **Fork of [Pufferfish](https://github.com/pufferfish-gg/Pufferfish)** for the best performance.
-- **Contains [Lithium](https://github.com/CaffeineMC/lithium-fabric) patches** which respect Vanilla parity.
-- **Efficient redstone** relying on [Alternate Current](https://github.com/SpaceWalkerRS/alternate-current), up to 4 times faster than Paper's algorithm.
-- **(WIP) Implements [C2ME](https://github.com/RelativityMC/C2ME-fabric)** to improve chunk generation speed, I/O and loading.
-- **Reduced bandwidth consumption and CPU usage** from avoiding sending useless packets in certain situations.
-- **Pre-tweaked** configuration files to reach optimal performance with minimal impact on normal behaviors.
-- **Login location** hiding feature, which adds another security layer in the logs for admins.
-- **Toggleable metrics**, no one can collect data, not even us.
-- **Bugfixes** for several Minecraft issues.
-- **Faster process** for Vanilla methods.
-- **Plugin compatibility** with Spigot & Paper plugins.
+- **使用 [Pufferfish](https://github.com/pufferfish-gg/Pufferfish) 分支** 以获得最佳性能.
+- **包含 [Lithium](https://github.com/CaffeineMC/lithium-fabric) 补丁** 不影响原版特性.
+- **高效红石** 使用 [Alternate Current](https://github.com/SpaceWalkerRS/alternate-current), 比 Paper 的算法快4倍.
+- **(WIP) Implements [C2ME](https://github.com/RelativityMC/C2ME-fabric)** 提高区块生成, I/O, 和加载速度.
+- **减少带宽消耗和 CPU 使用** 避免在某些情况下发送无用的数据包.
+- **预调整配置** 配置文件以在对正常行为影响最小的情况下达到最佳性能.
+- **登录位置隐藏** 为管理员在日志中添加另一个安全层.
+- **可切换指标**, 没有人可以收集数据, 即使是我们.
+- **错误修复** 对于 Minecraft 的一些bug.
+- **快速处理** 对于 Vanilla 方法.
+- **插件兼容** 对于 Spigot & Paper 插件.
 
-## Downloads
-The latest JAR file can be downloaded here:
+## 下载
+最新的 JAR 文件可以在这里下载: 
 [Mirai-1.18.2-R0.1-SNAPSHOT.jar](https://github.com/etil2jz/Mirai/releases/download/1.18.2/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar)
 
-**Please note Java >=17 is required.**
+**注意 Java 版本必须大于等于 17.**
 
-You can also clone this repository and build it yourself.
-If you are interested in making a fork, check out this template [there](https://github.com/PaperMC/paperweight-examples)!
+您也可以 Fork 此存储库并自己构建它.
+如果您有兴趣制作 Fork, 请查看此模板 [there](https://github.com/PaperMC/paperweight-examples)!
 
-## Building
-In order to distribute and use this server software, you need a paperclip file:
+## 构建
+为了分发和使用此软件, 您需要一个回形针文件: 
 
 ```bash
 ./gradlew applyPatches && ./gradlew createReobfPaperclipJar
 ```
 
-## License
+## 许可
 Patches are licensed under GPL-3.0.  
 All other files are licensed under MIT.
 
