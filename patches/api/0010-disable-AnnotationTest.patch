@@ -7,10 +7,10 @@ Original code by PatinaMC, licensed under GNU General Public License v3.0
 You can find the original code on https://github.com/PatinaMC/Patina
 
 diff --git a/src/test/java/org/bukkit/AnnotationTest.java b/src/test/java/org/bukkit/AnnotationTest.java
-index a5bced98d5b8860f4f05e42cfd8a355c162b8b6e..d5630df8b28486760324ca527693f24262b1c7ad 100644
+index 57cf9fab2501da6f1abd12e14697630ca82b0a6d..cca7e9876c7609acb26a6c9116b191b0e467a0b0 100644
 --- a/src/test/java/org/bukkit/AnnotationTest.java
 +++ b/src/test/java/org/bukkit/AnnotationTest.java
-@@ -67,6 +67,7 @@ public class AnnotationTest {
+@@ -63,6 +63,7 @@ public class AnnotationTest {
  
      @Test
      public void testAll() throws IOException, URISyntaxException {

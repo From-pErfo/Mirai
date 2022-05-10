@@ -7,13 +7,13 @@ Original code by Starlis, licensed under GNU General Public License v3.0
 You can find the original code on https://github.com/starlis/empirecraft
 
 diff --git a/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java b/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
-index 001d252763a689351a4df2ef830b3abb85a09e16..28d2aebb564e35065fe890cbade93e282cc69149 100644
+index 5a062a19bb2fc427c9391bb4731f071719b72c52..76110656d922fc734df5b08cb24eecf4dc97e38c 100644
 --- a/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
-@@ -365,4 +365,11 @@ public class FireworkRocketEntity extends Projectile implements ItemSupplier {
-         return this.level.purpurConfig.fireworkDespawnRate;
+@@ -358,4 +358,11 @@ public class FireworkRocketEntity extends Projectile implements ItemSupplier {
+     public boolean isAttackable() {
+         return false;
      }
-     // Purpur end
 +
 +    // EMC start
 +    @Override
