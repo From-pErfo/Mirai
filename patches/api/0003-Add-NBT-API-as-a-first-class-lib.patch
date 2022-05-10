@@ -7,7 +7,7 @@ Original code by YatopiaMC, licensed under MIT
 You can find the original code on https://github.com/YatopiaMC/Yatopia
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 3a1c5a4aa8d512d50565b22a383e44b73b276ee5..40020c860dac02cf678987cce78e8d50c105a365 100644
+index ea01ad75a874944a16f817f0a27e12b251111192..cb0f37378455aecdc4eae69bbc4d61a975b33ad5 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -1,6 +1,7 @@
@@ -35,8 +35,8 @@ index 3a1c5a4aa8d512d50565b22a383e44b73b276ee5..40020c860dac02cf678987cce78e8d50
 +}
 +
  tasks.withType<Javadoc> {
-     val options = options as StandardJavadocDocletOptions
-     options.overview = "src/main/javadoc/overview.html"
+     (options as StandardJavadocDocletOptions).addStringOption("-add-modules", "jdk.incubator.vector") // Purpur - our javadocs need this for pufferfish's SIMD patch
+     (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet") // Purpur - silence Paper's bajillion javadoc warnings
 diff --git a/src/main/java/org/bukkit/Chunk.java b/src/main/java/org/bukkit/Chunk.java
 index 049c36807d2a970842442c1b7517c06f3f150041..8bc45dcb8b739045cf4d867f2ea34488a4f59281 100644
 --- a/src/main/java/org/bukkit/Chunk.java
@@ -92,7 +92,7 @@ index 5c8517c5bcae10161952c104b6a4ff7c713bcdbd..bfe1c93caa4d3bb89e5e49c5b5988ddf
      /**
       * Checks if this TileState is a snapshot or a live
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index 8bc6876c82935988436597161fa0ec94c032174b..853fe4a484478f4c86a64159f61a6dd9b5a61163 100644
+index 3fa4f583c8d38c8cb62065f7f18986c985e4c92f..f9fa3663b4d6695f460cd7ccf4736216a00ea8a1 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
 @@ -190,6 +190,28 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
@@ -125,10 +125,10 @@ index 8bc6876c82935988436597161fa0ec94c032174b..853fe4a484478f4c86a64159f61a6dd9
       * Returns a list of entities within a bounding box centered around this
       * entity
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 56897cfb96b53e43fec343568e514ee636ddd5c5..42af0c2d3943d1c239cca0e900ec2a07f03d141c 100644
+index c6d2dfd7ec22c168b8bf348174ed25ee30a5c5cf..266efba2cd948e279e09ed8a4725bb19551199dc 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
-@@ -587,6 +587,44 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, net.kyor
+@@ -599,6 +599,44 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, net.kyor
      }
      // Paper end
  
