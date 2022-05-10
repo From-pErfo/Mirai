@@ -12,9 +12,9 @@ index 9521971e9e597834e785b36d1657064dc1621b9b..58f3c015bfcb6e24da58f4c4e9a31292
  }
  
  dependencies {
--    implementation(project(":pufferfish-api")) // Pufferfish // Paper
-+    implementation(project(":mirai-api")) // Mirai // Pufferfish // Paper
-     // Pufferfish start
+-    implementation(project(":purpur-api")) // purpur // Paper
++    implementation(project(":mirai-api")) // Mirai // purpur // Paper
+     // purpur start
      implementation("io.papermc.paper:paper-mojangapi:1.18.2-R0.1-SNAPSHOT") {
          exclude("io.papermc.paper", "paper-api")
 @@ -72,13 +72,13 @@ tasks.jar {
@@ -28,8 +28,8 @@ index 9521971e9e597834e785b36d1657064dc1621b9b..58f3c015bfcb6e24da58f4c4e9a31292
          attributes(
              "Main-Class" to "org.bukkit.craftbukkit.Main",
              "Implementation-Title" to "CraftBukkit",
--            "Implementation-Version" to "git-Pufferfish-$implementationVersion", // Pufferfish
-+            "Implementation-Version" to "git-Mirai-$implementationVersion", // Mirai // Pufferfish
+-            "Implementation-Version" to "git-purpur-$implementationVersion", // purpur
++            "Implementation-Version" to "git-Mirai-$implementationVersion", // Mirai // purpur
              "Implementation-Vendor" to date, // Paper
              "Specification-Title" to "Bukkit",
              "Specification-Version" to project.version,
@@ -41,7 +41,7 @@ index f2fe6ea3719ff8b2913b7a3a939d7a5b75cb8b28..d7d614f679ac30360eee431044962614
              boolean logFailedRequests = config.getBoolean("logFailedRequests", false);
              // Only start Metrics, if it's enabled in the config
              if (config.getBoolean("enabled", true)) {
--                Metrics metrics = new Metrics("Pufferfish", serverUUID, logFailedRequests, Bukkit.getLogger()); // Pufferfish
+-                Metrics metrics = new Metrics("purpur", serverUUID, logFailedRequests, Bukkit.getLogger()); // purpur
 +                Metrics metrics = new Metrics("Mirai", serverUUID, logFailedRequests, Bukkit.getLogger()); // Mirai
  
                  metrics.addCustomChart(new Metrics.SimplePie("minecraft_version", () -> {
@@ -50,7 +50,7 @@ index f2fe6ea3719ff8b2913b7a3a939d7a5b75cb8b28..d7d614f679ac30360eee431044962614
  
                  metrics.addCustomChart(new Metrics.SingleLineChart("players", () -> Bukkit.getOnlinePlayers().size()));
                  metrics.addCustomChart(new Metrics.SimplePie("online_mode", () -> Bukkit.getOnlineMode() ? "online" : "offline"));
--                metrics.addCustomChart(new Metrics.SimplePie("pufferfish_version", () -> (Metrics.class.getPackage().getImplementationVersion() != null) ? Metrics.class.getPackage().getImplementationVersion() : "unknown"));
+-                metrics.addCustomChart(new Metrics.SimplePie("purpur_version", () -> (Metrics.class.getPackage().getImplementationVersion() != null) ? Metrics.class.getPackage().getImplementationVersion() : "unknown"));
 +                metrics.addCustomChart(new Metrics.SimplePie("mirai_version", () -> (Metrics.class.getPackage().getImplementationVersion() != null) ? Metrics.class.getPackage().getImplementationVersion() : "unknown")); // Mirai
  
                  metrics.addCustomChart(new Metrics.DrilldownPie("java_version", () -> {
@@ -76,8 +76,8 @@ index 371b0f95b23d67c9913875a3dd7888e722551f18..7ba86703433322e2b166cc263cedd6e7
  
      @DontObfuscate
      public String getServerModName() {
--        return "Pufferfish"; // Pufferfish - Pufferfish > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
-+        return "Mirai"; // Mirai - Mirai > // Pufferfish - Pufferfish > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
+-        return "purpur"; // purpur - purpur > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
++        return "Mirai"; // Mirai - Mirai > // purpur - purpur > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
      }
  
      public SystemReport fillSystemReport(SystemReport details) {
@@ -89,8 +89,8 @@ index cca4ae47f80c45e64b4e0915d938e6e394a39b8e..fd4d672eeb8bcedae0965d883fde52cf
  import javax.annotation.Nonnull; // Paper
  
  public final class CraftServer implements Server {
--    private final String serverName = "Pufferfish"; // Paper // Pufferfish
-+    private final String serverName = "Mirai"; // Paper // Pufferfish // Mirai
+-    private final String serverName = "purpur"; // Paper // purpur
++    private final String serverName = "Mirai"; // Paper // purpur // Mirai
      private final String serverVersion;
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");
@@ -102,7 +102,7 @@ index 7e06f263cf618b82f77101ef86d819d5dc37a24e..f534611277af0173541f814df8bc763c
  
      @Override
      public com.destroystokyo.paper.util.VersionFetcher getVersionFetcher() {
--        return new gg.pufferfish.pufferfish.PufferfishVersionFetcher(); // Pufferfish
+-        return new gg.purpur.purpur.purpurVersionFetcher(); // purpur
 +        return new wtf.etil.mirai.MiraiVersionFetcher(); // Mirai
      }
  
@@ -115,7 +115,7 @@ index 80553face9c70c2a3d897681e7761df85b22d464..4c7515fa391ee9b631cb9cd3da67b50a
      public static String getBukkitVersion() {
          String result = "Unknown-Version";
  
--        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/gg.pufferfish.pufferfish/pufferfish-api/pom.properties"); // Pufferfish
+-        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/gg.purpur.purpur/purpur-api/pom.properties"); // purpur
 +        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/wtf.etil.mirai/mirai-api/pom.properties"); // Mirai
          Properties properties = new Properties();
  
