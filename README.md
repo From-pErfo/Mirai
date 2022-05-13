@@ -26,6 +26,9 @@
 
 **注意 Java 版本必须大于等于 17.**
 
+## 此分支
+删除了阻止 `reload commands` 的程序, 它没有错, 但我需要用于测试插件. 请不要在生产环境中使用它
+
 ## 许可
 Patches are licensed under GPL-3.0.  
 All other files are licensed under MIT.
