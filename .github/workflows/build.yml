@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3.0.0
         with:
           name: Mirai-Purpur-1.18.2
-          path: build/libs/*.jar
+          path: build/libs/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar
       
       
       - name: Release
@@ -46,4 +46,4 @@ jobs:
           automatic_release_tag: 'Mirai-Purpur'
           prerelease: false
           title: 'Mirai-Purpur'
-          files: build/libs/*.jar
+          files: build/libs/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar
