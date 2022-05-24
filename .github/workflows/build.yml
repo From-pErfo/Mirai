@@ -40,16 +40,16 @@ jobs:
       
       - name: Automatic Releases
         # 您可以固定到确切的提交或版本.
-        uses: marvinpinto/action-automatic-releases@v1.2.1
+        uses: marvinpinto/action-automatic-releases@latest
         with:
           # GitHub 秘密令牌
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           # Git 标签（用于自动发布）
-          automatic_release_tag: 'Mirai-Purpur'
+          automatic_release_tag: 'AR'
           # 是否应该将此版本标记为草稿？
           draft: false
           # 是否应将此版本标记为预发布？
-          prerelease: false
+          prerelease: true
           # 发布标题（用于自动发布）
           title: 'Mirai-Purpur'
           # 要上传到版本的资产
