@@ -49,7 +49,7 @@ jobs:
           # 是否应该将此版本标记为草稿？
           draft: false
           # 是否应将此版本标记为预发布？
-          prerelease: true
+          prerelease: false
           # 发布标题（用于自动发布）
           title: 'Mirai-Purpur'
           # 要上传到版本的资产
