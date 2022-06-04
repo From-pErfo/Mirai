@@ -5,7 +5,7 @@ Subject: [PATCH] Use faster random implementation
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 0321eac313212c717cf02889589bbc5f73c7d6ca..5b62c64b14efb69410c691fd9db0e943bb15432b 100644
+index 11c1ebd8522f74012a77cb23fd3a104b309f80eb..7e303ad6ded56b9d94cc97a99a35e732db4ea34f 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -31,6 +31,7 @@ dependencies {
@@ -91,7 +91,7 @@ index 4ba1913dcaa27dfb12257d530f874e79ca4b4b5e..0dfb153c8fa587e366f903e5b1534f65
  
      public static int roundToward(int value, int divisor) {
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index a3465acd25061d2b0833e8cae00403579e647b0b..77bff90134f142fb968c8a285d7c70f8951b3e87 100644
+index f6817da5a4f73e65d08121dda9540bd207cfbf0f..ee640237bc072c357275dedc5bf9a2fe29f9306c 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -182,7 +182,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
