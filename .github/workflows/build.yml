@@ -38,12 +38,20 @@ jobs:
           path: build/libs/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar
       
       
-      - name: Release
-        if: github.ref_name == 'ver/1.18.2'
+      - name: Automatic Releases
+        # 您可以固定到确切的提交或版本.
         uses: marvinpinto/action-automatic-releases@latest
         with:
+          # GitHub 秘密令牌
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: 'Mirai-Purpur'
+          # Git 标签（用于自动发布）
+          automatic_release_tag: 'AR'
+          # 是否应该将此版本标记为草稿？
+          draft: false
+          # 是否应将此版本标记为预发布？
           prerelease: false
+          # 发布标题（用于自动发布）
           title: 'Mirai-Purpur'
+          # 要上传到版本的资产
           files: build/libs/mirai-paperclip-1.18.2-R0.1-SNAPSHOT-reobf.jar
+
