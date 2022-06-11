@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: etil2jz <blanchot.arthur@protonmail.ch>
+Date: Sun, 8 May 2022 13:21:41 +0200
+Subject: [PATCH] Set default redstone implementation to Alternate Current
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
+index 3053d0d2f3c8a1ec8db89cd38ced2afca5b840f4..6984ed8a6a0d0ad4b933d01665c2f078c288ffcb 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
++++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
+@@ -90,11 +90,11 @@ public class PaperWorldConfig {
+     public enum RedstoneImplementation {
+         VANILLA, EIGENCRAFT, ALTERNATE_CURRENT
+     }
+-    public RedstoneImplementation redstoneImplementation = RedstoneImplementation.VANILLA;
++    public RedstoneImplementation redstoneImplementation = RedstoneImplementation.ALTERNATE_CURRENT; // Mirai - set default redstone implementation to Alternate Current
+     private void redstoneImplementation() {
+         String implementation;
+         if (PaperConfig.version < 27) {
+-            implementation = "vanilla";
++            implementation = "alternate-current"; // Mirai - set default redstone implementation to Alternate Current
+             if (config.contains("world-settings.default.use-faster-eigencraft-redstone")) {
+                 implementation = config.getBoolean("world-settings.default.use-faster-eigencraft-redstone") ? "eigencraft" : "vanilla";
+                 config.set("world-settings.default.redstone-implementation", implementation);
+@@ -105,7 +105,7 @@ public class PaperWorldConfig {
+             }
+             remove("use-faster-eigencraft-redstone");
+         } else {
+-            implementation = this.getString("redstone-implementation", "vanilla").toLowerCase().trim();
++            implementation = this.getString("redstone-implementation", "alternate-current").toLowerCase().trim(); // Mirai - set default redstone implementation to Alternate Current
+         }
+         switch (implementation) {
+             default:
